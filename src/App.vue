@@ -16,7 +16,7 @@
       <tbody class="tbody">
         <tr>
           <td class="tbody__add">
-            <input placeholder="Наберите имя" v-model="name" type="text" />
+            <input placeholder="Введите имя" v-model="name" type="text" />
           </td>
           <td class="tbody__add"><input v-model="phone" type="text" /></td>
           <td class="tbody__add"><input v-model="email" type="text" /></td>
