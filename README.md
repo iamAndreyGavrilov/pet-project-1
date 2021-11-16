@@ -14,5 +14,5 @@ npm run serve
 
 ## Authors
 
-ex. Gavrilov Andrey  
-ex. [Telegram](https://t.me/Andrey_Gavrilov1)
+Gavrilov Andrey  
+[Telegram](https://t.me/Andrey_Gavrilov1)
