@@ -203,6 +203,9 @@ export default {
     filteredUsers() {
       const start = (this.page - 1) * this.selected;
       const end = this.page * this.selected;
+      // const filteredUsers = this.users.filter((user) =>
+      //   user.name.toLowerCase().includes(this.filter.toLowerCase())
+      // );
       const filteredUsers = this.users.filter((user) =>
         user.name.toLowerCase().includes(this.filter.toLowerCase())
       );
