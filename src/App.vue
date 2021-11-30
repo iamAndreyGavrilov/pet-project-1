@@ -26,7 +26,7 @@
           <td class="shadow"></td>
         </tr>
       </tbody>
-      <tfoot>
+      <tfoot class="tfoot">
         <!-- <user-list
           @edit-user="editUser"
           @remove-user="removeUser"
@@ -37,44 +37,67 @@
           v-model:user.id="user.id"
           v-model:user.address.city="user.address.city"
         /> -->
-        <tr v-for="user in filteredUsers()" :key="user.id">
+        <tr style="height: 48px" v-for="user in filteredUsers()" :key="user.id">
           <td style="width: 300px" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.name }}</p>
             <input
+              class="input"
+              v-else
               v-model="user.name"
               type="text"
               :readonly="isUserReadonly(user)"
             />
           </td>
           <td style="width: 210" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.phone }}</p>
+
             <input
+              class="input"
+              v-else
               v-model="user.phone"
               type="text"
               :readonly="isUserReadonly(user)"
             />
           </td>
           <td style="width: 350" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.email }}</p>
+
             <input
+              class="input"
+              v-else
               v-model="user.email"
               type="text"
               :readonly="isUserReadonly(user)"
             />
           </td>
           <td style="width: 150px" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.address.zipcode }}</p>
+
             <input
+              class="input"
+              v-else
               v-model="user.address.zipcode"
               type="text"
               :readonly="isUserReadonly(user)"
             />
           </td>
           <td style="width: 100px" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.id }}</p>
+
             <input
+              class="input"
+              v-else
               v-model="user.id"
               type="text"
               :readonly="isUserReadonly(user)"
             />
           </td>
           <td style="width: 250px" class="shadow">
+            <p v-if="isUserReadonly(user)">{{ user.address.city }}</p>
+
             <input
+              class="input"
+              v-else
               v-model="user.address.city"
               type="text"
               :readonly="isUserReadonly(user)"
@@ -258,6 +281,9 @@ export default {
     },
     editUser(userToEdit) {
       this.userToEdit = userToEdit;
+      if (this.userToEdit === null) {
+        return true;
+      }
     },
 
     isUserReadonly(user) {
@@ -342,6 +368,7 @@ export default {
   color: #7b8395;
   background: rgba(219, 221, 223, 0.5);
 }
+
 .btns__table {
   width: 40px;
   height: 40px;
@@ -368,6 +395,13 @@ input {
   width: 99%;
   /* padding: 5px; */
   height: 95%;
+}
+.input {
+  background-color: #afd7ff;
+  height: 48px;
+}
+.tbody {
+  height: 48px;
 }
 .tbody__add {
   border: 1px solid #0080ff;
