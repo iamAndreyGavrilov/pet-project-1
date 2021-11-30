@@ -208,9 +208,14 @@ export default {
         user.name.toLowerCase().includes(this.filter.toLowerCase())
       );
 
-      // const filteredUsers = this.users.filter((user) =>
-      //   Object.keys(user).includes(this.filter.toLowerCase())
-      // );
+      // const filteredUsers = (users) => {
+      //   return users.reduce((filteredUser, user) => {
+      //     if (user.name.toLowerCase().includes(this.filter.toLowerCase())) {
+      //       filteredUser.push(user);
+      //     }
+      //     return filteredUser;
+      //   }, []);
+      // };
 
       this.pageTotal = Math.ceil(filteredUsers.length / this.selected);
       this.currentUser = start + 1;
