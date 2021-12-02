@@ -1,5 +1,5 @@
 <template>
-  <tr v-for="user in filteredUsers()" :key="user.id">
+  <tr v-for="user in paginationUsers" :key="user.id">
     <td class="shadow">
       <input
         :value="user.name"
@@ -69,14 +69,14 @@
 <script>
 export default {
   props: {
-    filteredUsers: {
-      type: Function,
+    paginationUsers: {
+      type: Object,
       required: true,
     },
-    isUserReadonly: {
-      type: Function,
-      required: true,
-    },
+    // isUserReadonly: {
+    //   type: Boolean,
+    //   required: true,
+    // },
   },
   methods: {
     editUser() {
@@ -84,6 +84,9 @@ export default {
     },
     removeUser() {
       this.$emit("remove-user", this.user);
+    },
+    isUserReadonly() {
+      return true;
     },
   },
 };

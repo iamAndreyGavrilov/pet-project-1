@@ -27,7 +27,8 @@
         </tr>
       </tbody>
       <tfoot class="tfoot">
-        <!-- <user-list
+        <user-list
+          :paginationUsers="paginationUsers"
           @edit-user="editUser"
           @remove-user="removeUser"
           v-model:user.name="user.name"
@@ -36,8 +37,8 @@
           v-model:user.address.zipcode="user.address.zipcode"
           v-model:user.id="user.id"
           v-model:user.address.city="user.address.city"
-        /> -->
-        <tr style="height: 48px" v-for="user in filteredUsers()" :key="user.id">
+        />
+        <!-- <tr style="height: 48px" v-for="user in filteredUsers()" :key="user.id">
           <td style="width: 300px" class="shadow">
             <p v-if="isUserReadonly(user)">{{ user.name }}</p>
             <input
@@ -118,7 +119,7 @@
               </button>
             </div>
           </td>
-        </tr>
+        </tr> -->
       </tfoot>
     </table>
 
@@ -190,11 +191,11 @@ import { fetchUsers } from "./api.js";
 import HeaderTable from "./components/HeaderTable.vue";
 import SettingsDisplayUsers from "./components/SettingsDisplayUsers.vue";
 import PickPages from "./components/PickPages.vue";
-// import UserList from "./components/UserList.vue";
+import UserList from "./components/UserList.vue";
 
 export default {
   name: "App",
-  components: { HeaderTable, SettingsDisplayUsers, PickPages },
+  components: { HeaderTable, SettingsDisplayUsers, PickPages, UserList },
   data() {
     return {
       users: [],
@@ -210,46 +211,19 @@ export default {
       },
       page: 1,
       selected: 5,
-      pageTotal: 0,
-      currentUser: 0,
-      currentUsers: 0,
-      usersAll: 0,
+      // pageTotal: 0,
+      // currentUser: 0,
+      // currentUsers: 0,
+      // usersAll: 0,
       filter: "",
       disBtn: true,
-      disBtnNext: false,
-      hasNextPage: true,
+      // disBtnNext: false,
+      // hasNextPage: true,
       // readonlyStatus: true,
       userToEdit: null,
     };
   },
   methods: {
-    filteredUsers() {
-      const start = (this.page - 1) * this.selected;
-      const end = this.page * this.selected;
-
-      const filteredUsers = this.users.filter((user) =>
-        user.name.toLowerCase().includes(this.filter.toLowerCase())
-      );
-
-      // const filteredUsers = (users) => {
-      //   return users.reduce((filteredUser, user) => {
-      //     if (user.name.toLowerCase().includes(this.filter.toLowerCase())) {
-      //       filteredUser.push(user);
-      //     }
-      //     return filteredUser;
-      //   }, []);
-      // };
-
-      this.pageTotal = Math.ceil(filteredUsers.length / this.selected);
-      this.currentUser = start + 1;
-      this.currentUsers = end;
-      this.usersAll = filteredUsers.length;
-      this.hasNextPage = filteredUsers.length > end;
-      this.disBtnNext =
-        filteredUsers.length < end || filteredUsers.length === end;
-      // return filteredUsers;
-      return filteredUsers.slice(start, end);
-    },
     createUser() {
       const newUser = {
         name: this.name,
@@ -286,12 +260,12 @@ export default {
       }
     },
 
-    isUserReadonly(user) {
-      if (this.userToEdit === null) {
-        return true;
-      }
-      return user.id !== this.userToEdit.id;
-    },
+    // isUserReadonly(user) {
+    //   if (this.userToEdit === null) {
+    //     return true;
+    //   }
+    //   return user.id !== this.userToEdit.id;
+    // },
 
     async getUsers() {
       try {
@@ -307,7 +281,43 @@ export default {
       this.page = Number(this.page) - 1;
     },
   },
-  computed: {},
+  computed: {
+    startIndex() {
+      return (this.page - 1) * this.selected;
+    },
+    endIndex() {
+      return this.page * this.selected;
+    },
+    filteredUsers() {
+      return this.users.filter((user) =>
+        user.name.toLowerCase().includes(this.filter.toLowerCase())
+      );
+    },
+    paginationUsers() {
+      return this.filteredUsers.slice(this.startIndex, this.endIndex);
+    },
+    hasNextPage() {
+      return this.filteredUsers.length > this.endIndex;
+    },
+    pageTotal() {
+      return Math.ceil(this.filteredUsers.length / this.selected);
+    },
+    currentUser() {
+      return this.startIndex + 1;
+    },
+    currentUsers() {
+      return this.endIndex;
+    },
+    usersAll() {
+      return this.filteredUsers.length;
+    },
+    disBtnNext() {
+      return (
+        this.filteredUsers.length < this.endIndex ||
+        this.filteredUsers.length === this.endIndex
+      );
+    },
+  },
   mounted() {
     this.getUsers();
   },
