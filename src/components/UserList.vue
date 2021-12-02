@@ -1,7 +1,11 @@
 <template>
   <tr v-for="user in paginationUsers" :key="user.id">
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.name }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.name"
         @input="$emit('update:user.name', $event.target.value)"
         type="text"
@@ -9,7 +13,11 @@
       />
     </td>
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.phone }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.phone"
         @input="$emit('update:user.phone', $event.target.value)"
         type="text"
@@ -17,7 +25,11 @@
       />
     </td>
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.email }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.email"
         @input="$emit('update:user.email', $event.target.value)"
         type="text"
@@ -25,7 +37,11 @@
       />
     </td>
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.address.zipcode }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.address.zipcode"
         @input="$emit('update:user.address.zipcode', $event.target.value)"
         type="text"
@@ -33,7 +49,11 @@
       />
     </td>
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.id }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.id"
         @input="$emit('update:user.id', $event.target.value)"
         type="text"
@@ -41,7 +61,11 @@
       />
     </td>
     <td class="shadow">
+      <p v-if="isUserReadonly(user)">{{ user.address.city }}</p>
+
       <input
+        class="input"
+        v-else
         :value="user.address.city"
         @input="$emit('update:user.address.city', $event.target.value)"
         type="text"
@@ -73,10 +97,10 @@ export default {
       type: Object,
       required: true,
     },
-    // isUserReadonly: {
-    //   type: Boolean,
-    //   required: true,
-    // },
+    isUserReadonly: {
+      type: Boolean,
+      required: true,
+    },
   },
   methods: {
     editUser() {
@@ -85,9 +109,9 @@ export default {
     removeUser() {
       this.$emit("remove-user", this.user);
     },
-    isUserReadonly() {
-      return true;
-    },
+    // isUserReadonly() {
+    //   return true;
+    // },
   },
 };
 </script>

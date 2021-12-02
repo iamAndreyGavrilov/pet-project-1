@@ -29,6 +29,7 @@
       <tfoot class="tfoot">
         <user-list
           :paginationUsers="paginationUsers"
+          :isUserReadonly="isUserReadonly"
           @edit-user="editUser"
           @remove-user="removeUser"
           v-model:user.name="user.name"
@@ -252,6 +253,8 @@ export default {
     },
     removeUser(userToRemove) {
       this.users = this.users.filter((user) => user !== userToRemove);
+      console.log(this.user);
+      console.log(userToRemove);
     },
     editUser(userToEdit) {
       this.userToEdit = userToEdit;
@@ -260,12 +263,12 @@ export default {
       }
     },
 
-    // isUserReadonly(user) {
-    //   if (this.userToEdit === null) {
-    //     return true;
-    //   }
-    //   return user.id !== this.userToEdit.id;
-    // },
+    isUserReadonly(user) {
+      if (this.userToEdit === null) {
+        return true;
+      }
+      return user.id !== this.userToEdit.id;
+    },
 
     async getUsers() {
       try {
