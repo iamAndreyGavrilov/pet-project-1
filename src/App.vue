@@ -252,11 +252,12 @@ export default {
       this.zipcode = "";
     },
     removeUser(userToRemove) {
+      console.log(this.users);
       this.users = this.users.filter((user) => user !== userToRemove);
-      console.log(this.user);
-      console.log(userToRemove);
+      console.log("removeUser");
     },
     editUser(userToEdit) {
+      console.log("editUser");
       this.userToEdit = userToEdit;
       if (this.userToEdit === null) {
         return true;
