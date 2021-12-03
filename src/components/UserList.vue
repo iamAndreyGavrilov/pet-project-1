@@ -6,8 +6,7 @@
       <input
         class="input"
         v-else
-        :value="user.name"
-        @input="$emit('update:user.name', $event.target.value)"
+        v-model="userToEdit.name"
         type="text"
         :readonly="isUserReadonly(user)"
       />
@@ -18,8 +17,7 @@
       <input
         class="input"
         v-else
-        :value="user.phone"
-        @input="$emit('update:user.phone', $event.target.value)"
+        v-model="userToEdit.phone"
         type="text"
         :readonly="isUserReadonly(user)"
       />
@@ -30,8 +28,7 @@
       <input
         class="input"
         v-else
-        :value="user.email"
-        @input="$emit('update:user.email', $event.target.value)"
+        v-model="userToEdit.email"
         type="text"
         :readonly="isUserReadonly(user)"
       />
@@ -42,8 +39,7 @@
       <input
         class="input"
         v-else
-        :value="user.address.zipcode"
-        @input="$emit('update:user.address.zipcode', $event.target.value)"
+        v-model="userToEdit.address.zipcode"
         type="text"
         :readonly="isUserReadonly(user)"
       />
@@ -54,8 +50,7 @@
       <input
         class="input"
         v-else
-        :value="user.id"
-        @input="$emit('update:user.id', $event.target.value)"
+        v-model="userToEdit.id"
         type="text"
         :readonly="isUserReadonly(user)"
       />
@@ -66,22 +61,24 @@
       <input
         class="input"
         v-else
-        :value="user.address.city"
-        @input="$emit('update:user.address.city', $event.target.value)"
+        v-model="userToEdit.address.city"
         type="text"
         :readonly="isUserReadonly(user)"
       />
     </td>
     <td>
       <div class="btns">
-        <button class="btns__table" @click="editUser(user)">
-          <img
-            v-if="isUserReadonly(user)"
-            src="@/assets/image/Icons_16_edit.png"
-            alt=""
-          />
-          <img v-else src="@/assets/image/Icons_16_save.png" alt="" />
+        <button
+          v-if="isUserReadonly(user)"
+          class="btns__table"
+          @click="editUser(user)"
+        >
+          <img src="@/assets/image/Icons_16_edit.png" alt="" />
         </button>
+        <button v-else class="btns__table" @click="saveUser()">
+          <img src="@/assets/image/Icons_16_save.png" alt="" />
+        </button>
+
         <button class="btns__table" @click="removeUser(user)">
           <img src="@/assets/image/Icons_16_delete.png" alt="" />
         </button>
@@ -92,26 +89,43 @@
 
 <script>
 export default {
+  data() {
+    return {
+      userToEdit: {
+        name: "",
+        phone: "",
+        email: "",
+        id: "",
+        address: {
+          city: "",
+          zipcode: "",
+        },
+      },
+    };
+  },
   props: {
     paginationUsers: {
       type: Object,
       required: true,
     },
-    isUserReadonly: {
-      type: Boolean,
-      required: true,
-    },
   },
   methods: {
-    editUser() {
-      this.$emit("edit-user", this.user);
+    removeUser(user) {
+      this.$emit("remove-user", user);
     },
-    removeUser() {
-      this.$emit("remove-user", this.user);
+    editUser(userToEdit) {
+      this.userToEdit = userToEdit;
     },
-    // isUserReadonly() {
-    //   return true;
-    // },
+    saveUser() {
+      this.$emit("save-user", this.userToEdit);
+      this.userToEdit = null;
+    },
+    isUserReadonly(user) {
+      if (this.userToEdit === null) {
+        return true;
+      }
+      return user.id !== this.userToEdit.id;
+    },
   },
 };
 </script>

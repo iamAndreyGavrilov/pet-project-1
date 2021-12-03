@@ -29,15 +29,8 @@
       <tfoot class="tfoot">
         <user-list
           :paginationUsers="paginationUsers"
-          :isUserReadonly="isUserReadonly"
-          @edit-user="editUser"
           @remove-user="removeUser"
-          v-model:user.name="user.name"
-          v-model:user.phone="user.phone"
-          v-model:user.email="user.email"
-          v-model:user.address.zipcode="user.address.zipcode"
-          v-model:user.id="user.id"
-          v-model:user.address.city="user.address.city"
+          @save-user="saveUser"
         />
         <!-- <tr style="height: 48px" v-for="user in filteredUsers()" :key="user.id">
           <td style="width: 300px" class="shadow">
@@ -221,7 +214,6 @@ export default {
       // disBtnNext: false,
       // hasNextPage: true,
       // readonlyStatus: true,
-      userToEdit: null,
     };
   },
   methods: {
@@ -252,25 +244,16 @@ export default {
       this.zipcode = "";
     },
     removeUser(userToRemove) {
-      console.log(this.users);
-      this.users = this.users.filter((user) => user !== userToRemove);
-      console.log("removeUser");
+      this.users = this.users.filter((user) => user.id !== userToRemove.id);
     },
-    editUser(userToEdit) {
-      console.log("editUser");
-      this.userToEdit = userToEdit;
-      if (this.userToEdit === null) {
-        return true;
-      }
+    saveUser(userToSave) {
+      this.users = this.users.map((user) => {
+        if (userToSave.id === user.id) {
+          return userToSave;
+        }
+        return user;
+      });
     },
-
-    isUserReadonly(user) {
-      if (this.userToEdit === null) {
-        return true;
-      }
-      return user.id !== this.userToEdit.id;
-    },
-
     async getUsers() {
       try {
         this.users = await fetchUsers();
