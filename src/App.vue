@@ -32,88 +32,6 @@
           @remove-user="removeUser"
           @save-user="saveUser"
         />
-        <!-- <tr style="height: 48px" v-for="user in filteredUsers()" :key="user.id">
-          <td style="width: 300px" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.name }}</p>
-            <input
-              class="input"
-              v-else
-              v-model="user.name"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 210" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.phone }}</p>
-
-            <input
-              class="input"
-              v-else
-              v-model="user.phone"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 350" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.email }}</p>
-
-            <input
-              class="input"
-              v-else
-              v-model="user.email"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 150px" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.address.zipcode }}</p>
-
-            <input
-              class="input"
-              v-else
-              v-model="user.address.zipcode"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 100px" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.id }}</p>
-
-            <input
-              class="input"
-              v-else
-              v-model="user.id"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 250px" class="shadow">
-            <p v-if="isUserReadonly(user)">{{ user.address.city }}</p>
-
-            <input
-              class="input"
-              v-else
-              v-model="user.address.city"
-              type="text"
-              :readonly="isUserReadonly(user)"
-            />
-          </td>
-          <td style="width: 80px">
-            <div class="btns">
-              <button class="btns__table" @click="editUser(user)">
-                <img
-                  v-if="isUserReadonly(user)"
-                  src="./assets/image/Icons_16_edit.png"
-                  alt=""
-                />
-                <img v-else src="./assets/image/Icons_16_save.png" alt="" />
-              </button>
-              <button class="btns__table" @click="removeUser(user)">
-                <img src="./assets/image/Icons_16_delete.png" alt="" />
-              </button>
-            </div>
-          </td>
-        </tr> -->
       </tfoot>
     </table>
 
@@ -132,50 +50,6 @@
         @page-back="changeDisabledBack"
         @page-next="changeDisabledNext"
       />
-      <!-- <div class="footer__left">
-        <div class="items__user shadow">
-          <div id="v-model-select" class="demo">
-            <span>Отображать по:</span>
-            <select v-model="selected">
-              <option>5</option>
-              <option>10</option>
-              <option>20</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="page__view shadow">
-          {{ currentUser }}-{{ currentUsers }} из {{ usersAll }} пользователей
-        </div>
-      </div> -->
-      <!-- <div class="footer__right">
-        <div class="page__select shadow">
-          <select v-model="page">
-            <option v-for="pageNumber in pageTotal" :key="pageNumber">
-              {{ pageNumber }}
-            </option>
-          </select>
-          из {{ pageTotal }} страниц
-        </div>
-        <div class="arrows">
-          <button
-            class="arrow__btn"
-            :disabled="disBtn"
-            @click="changeDisabledBack()"
-          >
-            <img src="./assets/image/icon__16__pagination-left.png" alt="" />
-          </button>
-          <button
-            class="arrow__btn"
-            :disabled="disBtnNext"
-            @click="changeDisabledNext()"
-          >
-            <img src="./assets/image/icon__16__pagination-right.png" alt="" />
-          </button>
-        </div>
-      </div> -->
     </footer>
   </div>
 </template>
@@ -205,15 +79,8 @@ export default {
       },
       page: 1,
       selected: 5,
-      // pageTotal: 0,
-      // currentUser: 0,
-      // currentUsers: 0,
-      // usersAll: 0,
       filter: "",
       disBtn: true,
-      // disBtnNext: false,
-      // hasNextPage: true,
-      // readonlyStatus: true,
     };
   },
   methods: {
@@ -222,7 +89,7 @@ export default {
         name: this.name,
         phone: this.phone,
         email: this.email,
-        // id: Date.now(),
+
         id: this.id,
         address: {
           city: this.city,
@@ -234,7 +101,7 @@ export default {
       } else {
         this.users.push(newUser);
       }
-      // this.users.push(newUser);
+
       this.filter = "";
       this.name = "";
       this.phone = "";
@@ -372,7 +239,6 @@ export default {
 }
 .fixed {
   width: 100%;
-  /* max-height: 648px; */
 }
 .footer {
   height: 48px;
@@ -390,12 +256,11 @@ export default {
 input {
   border: none;
   width: 99%;
-  /* padding: 5px; */
   height: 95%;
 }
 .input {
   background-color: #afd7ff;
-  height: 48px;
+  /* height: 48px; */
 }
 .tbody {
   height: 48px;
