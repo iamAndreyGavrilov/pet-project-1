@@ -142,6 +142,15 @@ export default {
     endIndex() {
       return this.page * this.selected;
     },
+    // filteredUsers() {
+    //   return this.users.filter((user) =>
+    //     user.name.toLowerCase().includes(this.filter.toLowerCase())
+    //   );
+    // },
+    // testObj() {
+    //   console.log(this.users.flat(), "OLOOOOO 1");
+    //   return this.users.flat();
+    // },
     filteredUsers() {
       return this.users.filter((user) =>
         user.name.toLowerCase().includes(this.filter.toLowerCase())
