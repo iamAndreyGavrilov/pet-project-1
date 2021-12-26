@@ -147,15 +147,16 @@ export default {
         user.name.toLowerCase().includes(this.filter.toLowerCase())
       );
     },
-    // flatUsers() {
-    //   return this.users.flatMap((user) => {
-    //     Object.values(user);
-    //   });
-    // },
 
     // filteredUsers() {
-    //   return this.flatUsers.filter((user) =>
-    //     user.some((field) => field.includes(this.filter))
+    //   let usersValue = this.users.flatMap((user) => {
+    //     return Object.values(user);
+    //   });
+    //   console.log(usersValue);
+
+    //   return usersValue.filter(
+    //     (user) => console.log(user)
+    //     // user.some((field) => field.includes(this.filter))
     //   );
     // },
 
