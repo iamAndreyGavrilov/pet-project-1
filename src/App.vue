@@ -67,16 +67,12 @@ export default {
   data() {
     return {
       users: [],
-      user: {
-        name: "",
-        phone: "",
-        email: "",
-        id: "",
-        address: {
-          city: "",
-          zipcode: "",
-        },
-      },
+      name: "",
+      phone: "",
+      email: "",
+      id: "",
+      city: "",
+      zipcode: "",
       page: 1,
       selected: 5,
       filter: "",
@@ -134,6 +130,41 @@ export default {
     changeDisabledBack() {
       this.page = Number(this.page) - 1;
     },
+    // checkUserByFilter(obj) {
+    //   const SEARCHING_FIELDS = [
+    //     "name",
+    //     "email",
+    //     "phone",
+    //     "id",
+    //     "city",
+    //     "zipcode",
+    //     "address",
+    //   ];
+
+    //   let result;
+
+    //   if (typeof obj == "undefined") {
+    //     result = false;
+    //   }
+
+    //   for (let key in obj) {
+    //     if (SEARCHING_FIELDS.includes(key)) {
+    //       if (typeof obj[key] === "string" || typeof obj[key] === "number") {
+    //         const fieldValue = String(obj[key]);
+    //         if (
+    //           fieldValue
+    //             .toLowerCase()
+    //             .includes(this.filter.toLowerCase().trim())
+    //         ) {
+    //           return true;
+    //         }
+    //       } else if (obj[key] !== null && typeof obj[key] === "object") {
+    //         result = this.checkUserByFilter(obj[key]);
+    //       }
+    //     }
+    //   }
+    //   return result;
+    // },
   },
   computed: {
     startIndex() {
@@ -149,15 +180,15 @@ export default {
     },
 
     // filteredUsers() {
-    //   let usersValue = this.users.flatMap((user) => {
-    //     return Object.values(user);
-    //   });
-    //   console.log(usersValue);
+    //   const result = [];
 
-    //   return usersValue.filter(
-    //     (user) => console.log(user)
-    //     // user.some((field) => field.includes(this.filter))
-    //   );
+    //   this.users.forEach((user) => {
+    //     if (this.checkUserByFilter(user)) {
+    //       result.push(user);
+    //     }
+    //   });
+
+    //   return result;
     // },
 
     paginationUsers() {
