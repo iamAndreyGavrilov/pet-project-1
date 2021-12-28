@@ -92,7 +92,7 @@ export default {
           zipcode: this.zipcode,
         },
       };
-      if (this.name === "") {
+      if (this.name === "" || this.id === "") {
         return;
       } else {
         this.users.push(newUser);
@@ -130,41 +130,41 @@ export default {
     changeDisabledBack() {
       this.page = Number(this.page) - 1;
     },
-    // checkUserByFilter(obj) {
-    //   const SEARCHING_FIELDS = [
-    //     "name",
-    //     "email",
-    //     "phone",
-    //     "id",
-    //     "city",
-    //     "zipcode",
-    //     "address",
-    //   ];
+    checkUserByFilter(obj) {
+      const SEARCHING_FIELDS = [
+        "name",
+        "email",
+        "phone",
+        "id",
+        "city",
+        "zipcode",
+        "address",
+      ];
 
-    //   let result;
+      let result;
 
-    //   if (typeof obj == "undefined") {
-    //     result = false;
-    //   }
+      if (typeof obj == "undefined") {
+        result = false;
+      }
 
-    //   for (let key in obj) {
-    //     if (SEARCHING_FIELDS.includes(key)) {
-    //       if (typeof obj[key] === "string" || typeof obj[key] === "number") {
-    //         const fieldValue = String(obj[key]);
-    //         if (
-    //           fieldValue
-    //             .toLowerCase()
-    //             .includes(this.filter.toLowerCase().trim())
-    //         ) {
-    //           return true;
-    //         }
-    //       } else if (obj[key] !== null && typeof obj[key] === "object") {
-    //         result = this.checkUserByFilter(obj[key]);
-    //       }
-    //     }
-    //   }
-    //   return result;
-    // },
+      for (let key in obj) {
+        if (SEARCHING_FIELDS.includes(key)) {
+          if (typeof obj[key] === "string" || typeof obj[key] === "number") {
+            const fieldValue = String(obj[key]);
+            if (
+              fieldValue
+                .toLowerCase()
+                .includes(this.filter.toLowerCase().trim())
+            ) {
+              return true;
+            }
+          } else if (obj[key] !== null && typeof obj[key] === "object") {
+            result = this.checkUserByFilter(obj[key]);
+          }
+        }
+      }
+      return result;
+    },
   },
   computed: {
     startIndex() {
@@ -173,23 +173,23 @@ export default {
     endIndex() {
       return this.page * this.selected;
     },
-    filteredUsers() {
-      return this.users.filter((user) =>
-        user.name.toLowerCase().includes(this.filter.toLowerCase())
-      );
-    },
-
     // filteredUsers() {
-    //   const result = [];
-
-    //   this.users.forEach((user) => {
-    //     if (this.checkUserByFilter(user)) {
-    //       result.push(user);
-    //     }
-    //   });
-
-    //   return result;
+    //   return this.users.filter((user) =>
+    //     user.name.toLowerCase().includes(this.filter.toLowerCase())
+    //   );
     // },
+
+    filteredUsers() {
+      const result = [];
+
+      this.users.forEach((user) => {
+        if (this.checkUserByFilter(user)) {
+          result.push(user);
+        }
+      });
+
+      return result;
+    },
 
     paginationUsers() {
       return this.filteredUsers.slice(this.startIndex, this.endIndex);
