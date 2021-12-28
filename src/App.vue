@@ -16,13 +16,17 @@
       <tbody class="tbody">
         <tr>
           <td class="tbody__add">
-            <input placeholder="Введите имя" v-model="name" type="text" />
+            <input placeholder="Введите имя" v-model.trim="name" type="text" />
           </td>
-          <td class="tbody__add"><input v-model="phone" type="text" /></td>
-          <td class="tbody__add"><input v-model="email" type="text" /></td>
-          <td class="tbody__add"><input v-model="zipcode" type="text" /></td>
-          <td class="tbody__add"><input v-model="id" type="text" /></td>
-          <td class="tbody__add"><input v-model="city" type="text" /></td>
+          <td class="tbody__add"><input v-model.trim="phone" type="text" /></td>
+          <td class="tbody__add"><input v-model.trim="email" type="text" /></td>
+          <td class="tbody__add">
+            <input v-model.trim="zipcode" type="text" />
+          </td>
+          <td class="tbody__add">
+            <input placeholder="Введите id" v-model.trim="id" type="text" />
+          </td>
+          <td class="tbody__add"><input v-model.trim="city" type="text" /></td>
           <td class="shadow"></td>
         </tr>
       </tbody>
@@ -143,7 +147,7 @@ export default {
 
       let result;
 
-      if (typeof obj == "undefined") {
+      if (typeof obj === "undefined") {
         result = false;
       }
 
